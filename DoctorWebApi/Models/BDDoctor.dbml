@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Medico" Class="BDDoctorDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-LR19K8J;Initial Catalog=Medico;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="MedicoConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Clinica" Member="Clinica">
+    <Type Name="Clinica">
+      <Column Name="IIDCLINICA" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOMBRE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="DIRECCION" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Clinica_Doctor" Member="Doctor" ThisKey="IIDCLINICA" OtherKey="IIDCLINICA" Type="Doctor" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Consulta" Member="Consulta">
+    <Type Name="Consulta">
+      <Column Name="IIDCONSULTA" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IIDPACIENTE" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PESO" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="ESTATURA" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="EXAMENFISICO" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="EXAMENLABORATORIO" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="DIAGNOSTICO" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="FECHACITA" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Consulta_ConsultaMedicamento" Member="ConsultaMedicamento" ThisKey="IIDCONSULTA" OtherKey="IIDCONSULTA" Type="ConsultaMedicamento" />
+      <Association Name="Paciente_Consulta" Member="Paciente" ThisKey="IIDPACIENTE" OtherKey="IIDPACIENTE" Type="Paciente" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ConsultaMedicamento" Member="ConsultaMedicamento">
+    <Type Name="ConsultaMedicamento">
+      <Column Name="IIDCONSULTA" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IIDMEDICAMENTO" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CANTIDAD" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PRECIO" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="TOTAL" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Association Name="Consulta_ConsultaMedicamento" Member="Consulta" ThisKey="IIDCONSULTA" OtherKey="IIDCONSULTA" Type="Consulta" IsForeignKey="true" />
+      <Association Name="Medicamento_ConsultaMedicamento" Member="Medicamento" ThisKey="IIDMEDICAMENTO" OtherKey="IIDMEDICAMENTO" Type="Medicamento" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Doctor" Member="Doctor">
+    <Type Name="Doctor">
+      <Column Name="IIDDOCTOR" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOMBRE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="APPATERNO" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="APMATERNO" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="IIDCLINICA" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IIDESPECIALIDAD" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EMAIL" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="TELEFONOCELULAR" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="IIDSEXO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SUELDO" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="FECHACONTRATO" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NOMBREARCHIVO" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ARCHIVO" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="Clinica_Doctor" Member="Clinica" ThisKey="IIDCLINICA" OtherKey="IIDCLINICA" Type="Clinica" IsForeignKey="true" />
+      <Association Name="Especialidad_Doctor" Member="Especialidad" ThisKey="IIDESPECIALIDAD" OtherKey="IIDESPECIALIDAD" Type="Especialidad" IsForeignKey="true" />
+      <Association Name="Sexo_Doctor" Member="Sexo" ThisKey="IIDSEXO" OtherKey="IIDSEXO" Type="Sexo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Especialidad" Member="Especialidad">
+    <Type Name="Especialidad">
+      <Column Name="IIDESPECIALIDAD" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOMBRE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DESCRIPCION" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Association Name="Especialidad_Doctor" Member="Doctor" ThisKey="IIDESPECIALIDAD" OtherKey="IIDESPECIALIDAD" Type="Doctor" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FormaFarmaceutica" Member="FormaFarmaceutica">
+    <Type Name="FormaFarmaceutica">
+      <Column Name="IIDFORMAFARMACEUTICA" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOMBRE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="FormaFarmaceutica_Medicamento" Member="Medicamento" ThisKey="IIDFORMAFARMACEUTICA" OtherKey="IIDFORMAFARMACEUTICA" Type="Medicamento" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Medicamento" Member="Medicamento">
+    <Type Name="Medicamento">
+      <Column Name="IIDMEDICAMENTO" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOMBRE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CONCENTRACION" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="IIDFORMAFARMACEUTICA" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PRECIO" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="STOCK" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PRESENTACION" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Medicamento_ConsultaMedicamento" Member="ConsultaMedicamento" ThisKey="IIDMEDICAMENTO" OtherKey="IIDMEDICAMENTO" Type="ConsultaMedicamento" />
+      <Association Name="FormaFarmaceutica_Medicamento" Member="FormaFarmaceutica" ThisKey="IIDFORMAFARMACEUTICA" OtherKey="IIDFORMAFARMACEUTICA" Type="FormaFarmaceutica" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Paciente" Member="Paciente">
+    <Type Name="Paciente">
+      <Column Name="IIDPACIENTE" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOMBRE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="APPATERNO" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="APMATERNO" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="EMAIL" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="DIRECCION" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="TELEFONOFIJO" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="TELEFONOCELULAR" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="FECHANACIMIENTO" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IIDSEXO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IIDTIPOSANGRE" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ALERGIAS" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="ENFERMEDADESCRONICAS" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="CUADRADOVACUNAS" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="ANTECEDENTESQUIRURGICOS" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="foto" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Paciente_Consulta" Member="Consulta" ThisKey="IIDPACIENTE" OtherKey="IIDPACIENTE" Type="Consulta" />
+      <Association Name="Sexo_Paciente" Member="Sexo" ThisKey="IIDSEXO" OtherKey="IIDSEXO" Type="Sexo" IsForeignKey="true" />
+      <Association Name="TipoSangre_Paciente" Member="TipoSangre" ThisKey="IIDTIPOSANGRE" OtherKey="IIDTIPOSANGRE" Type="TipoSangre" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Sexo" Member="Sexo">
+    <Type Name="Sexo">
+      <Column Name="IIDSEXO" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOMBRE" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Sexo_Doctor" Member="Doctor" ThisKey="IIDSEXO" OtherKey="IIDSEXO" Type="Doctor" />
+      <Association Name="Sexo_Paciente" Member="Paciente" ThisKey="IIDSEXO" OtherKey="IIDSEXO" Type="Paciente" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TipoSangre" Member="TipoSangre">
+    <Type Name="TipoSangre">
+      <Column Name="IIDTIPOSANGRE" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOMBRE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="TipoSangre_Paciente" Member="Paciente" ThisKey="IIDTIPOSANGRE" OtherKey="IIDTIPOSANGRE" Type="Paciente" />
+    </Type>
+  </Table>
+</Database>
